@@ -1,16 +1,4 @@
-// rca.v
-// Identical structure to Task 2's ripple_adder -- reuse your wiring
-// pattern directly.
-//
-// Required file: copy your completed FA_Gate.v from Task 2 (the version
-// with delays already added, from part (a) or (b)) into this folder.
-// No separate "delay" variant is needed -- Task 2's FA_Gate already has
-// delays built in, and every gate/module from here on should too.
-//
-// TODO: instantiate four FA_Gate instances, same chaining pattern as
-// Task 2 (FA0..FA3, carry chain c1,c2,c3).
-
-module rca(
+module rca (
   input  [3:0] a,
   input  [3:0] b,
   input        cin,
@@ -18,8 +6,21 @@ module rca(
   output       cout
 );
 
-  wire c1, c2, c3;
+  wire [4:0] c;
+  assign c[0] = cin;
+  assign cout = c[4];
 
-  // TODO: your four FA_Gate instances go here.
+  genvar i;
+  generate
+    for (i = 0; i < 4; i = i + 1) begin : gen_fa
+      FA_Gate fa_inst (
+        .a(a[i]),
+        .b(b[i]),
+        .cin(c[i]),
+        .sum(sum[i]),
+        .cout(c[i+1])
+      );
+    end
+  endgenerate
 
 endmodule

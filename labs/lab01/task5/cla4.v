@@ -1,6 +1,4 @@
 // cla4.v
-// (Carried forward from Task 3 -- paste in your completed, delay-annotated
-// version.)
 // Gate-level 4-bit carry-lookahead adder, matching the lecture circuit.
 // Every gate needs an explicit delay (constant is fine here, e.g. #(2)) --
 // this is the default from Task 2 onward, not a special step.
