@@ -1,21 +1,11 @@
 // FA_Gate.v
-// Gate-level model of a 1-bit full adder, now with explicit gate delays.
-// From this task onward, every gate/assign you write in this lab should
-// have an explicit delay -- it's the default way we'll be writing Verilog
-// from here on, not a special add-on.
+// Gate-level model of a 1-bit full adder. No delays yet -- that starts in
+// Task 2. This task is purely about gate ordering.
 //
-// Part (a): add a CONSTANT delay to every gate below, e.g.:
-//   xor #(2) (ps, a, b);
-// Do this for all five gates, then complete ripple_adder.v (this folder)
-// using this full adder, and simulate against tb.v.
-//
-// Part (b): after completing (a), change every gate's delay from a single
-// constant value to a RISE/FALL pair instead, e.g.:
-//   xor #(2,3) (ps, a, b);   // rise delay = 2, fall delay = 3
-// This tells the simulator to use a different delay depending on whether
-// the gate's output is transitioning 0->1 (rise) or 1->0 (fall) -- real
-// gates are rarely symmetric this way. Re-simulate with the SAME
-// ripple_adder.v and tb.v; nothing else needs to change.
+// Part (a): leave this file exactly as it is, compile, and simulate.
+// Part (b): AFTER completing part (a), come back and reorder the five gate
+//           instantiations below into any different sequence, then
+//           re-simulate with the same tb.v and compare.
 
 module FA_Gate(
   input  a,
@@ -24,12 +14,15 @@ module FA_Gate(
   output sum,
   output cout
 );
-  wire ps, pc1, pc2;
 
-  xor (ps,  a,   b);
-  and (pc1, a,   b);
-  xor (sum, cin, ps);
-  and (pc2, cin, ps);
-  or  (cout, pc1, pc2);
+  wire w1, w2, w3;
+
+  xor #(2) g1(w1, a, b);
+  xor #(2) g2(sum, w1, cin);
+
+  and #(2) g3(w2, a, b);
+  and #(2) g4(w3, w1, cin);
+  or  #(2) g5(cout, w2, w3);
 
 endmodule
+
