@@ -8,7 +8,7 @@ module dut (
 
 `ifdef CLA4
   cla4 U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
-`elif defined(CLA4_DATAFLOW)
+`elsif CLA4_DATAFLOW
   cla4_dataflow U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
 `else
   rca U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));

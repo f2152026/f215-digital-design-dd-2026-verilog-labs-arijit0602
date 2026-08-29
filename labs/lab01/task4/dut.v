@@ -8,7 +8,7 @@ module dut (
 
 `ifdef CLA64_FLAT
   cla64_flat U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
-`elif defined(CLA64_BLOCKED)
+`elsif CLA64_BLOCKED
   cla64_blocked U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
 `else
   rca64 U_IMPL (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
